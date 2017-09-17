@@ -1,0 +1,14 @@
+{
+  "name": "twitch-hdt-simulator",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Benedict Etzel <benedict@hearthsim.net>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "jsonwebtoken": "^8.0.1",
+    "promise": "^8.0.1",
+    "request": "^2.81.0",
+    "yargs": "^8.0.2"
+  },
+  "private": true
+}
