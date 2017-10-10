@@ -45,18 +45,21 @@ console.log(`Configured extension ${extensionClientId} with owner ${extensionOwn
 console.log(`Sending to channel ${targetChannel}`);
 
 // build jwt
-const jwt_payload = {
-	"exp": Math.floor(new Date().getTime() / 1000) + 60 * 60,
-	"user_id": extensionOwner,
-	"role": "external",
-	"channel_id": targetChannel,
-	"pubsub_perms": {
-		"send": [
-			"*",
-		],
-	},
+const makeJWT = function() {
+	const secret = Buffer.from(base64Secret, "base64");
+	const jwt_payload = {
+		"exp": Math.floor(new Date().getTime() / 1000) + 1 * 60,
+		"user_id": extensionOwner,
+		"role": "external",
+		"channel_id": targetChannel,
+		"pubsub_perms": {
+			"send": [
+				"*",
+			],
+		},
+	};
+	return JWT.sign(jwt_payload, secret);
 };
-const jwt = JWT.sign(jwt_payload, Buffer.from(base64Secret, "base64"));
 
 // read and send messages
 const promise = new Promise((resolve, reject) => {
@@ -101,7 +104,7 @@ const promise = new Promise((resolve, reject) => {
 				uri: `https://api.twitch.tv/extensions/message/${targetChannel}`,
 				method: "POST",
 				headers: {
-					"Authorization": `Bearer ${jwt}`,
+					"Authorization": `Bearer ${makeJWT()}`,
 					"Client-Id": extensionClientId,
 					"Content-Type": "application/json; charset=utf-8",
 					"Content-Length": out.length,
