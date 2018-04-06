@@ -133,4 +133,4 @@ const promise = new Promise((resolve, reject) => {
 	}, messageInterval);
 }))
 .catch((err) => console.error(err))
-.then(() => console.log("Done, starting over"));
+.then(() => console.log("Done"));
