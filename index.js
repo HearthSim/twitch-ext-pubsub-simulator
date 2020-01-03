@@ -118,8 +118,8 @@ const promise = new Promise((resolve, reject) => {
 				}
 			})
 			.on("response", (res) => {
-				console.log(`statusCode: ${res.statusCode}`);
 				if (argv.v) {
+					console.log(`statusCode: ${res.statusCode}`);
 					console.log(res.headers);
 				}
 			})
