@@ -63,7 +63,7 @@ const makeJWT = function() {
 
 // read and send messages
 const promise = new Promise((resolve, reject) => {
-	fs.readFile(path.join(__dirname, sourceFile), "utf8", (err, data) => {
+	fs.readFile(sourceFile, "utf8", (err, data) => {
 		if (err) {
 			reject(err);
 			return;
