@@ -49,7 +49,7 @@ console.log(`Sending to channel ${targetChannel}`);
 const makeJWT = function() {
   const secret = Buffer.from(base64Secret, "base64");
   const jwt_payload = {
-    exp: Math.floor(new Date().getTime() / 1000) + 1 * 60,
+    exp: Math.floor(new Date().getTime() / 1000) + 2 * 60 * 60,
     user_id: extensionOwner,
     role: "external",
     channel_id: targetChannel,
