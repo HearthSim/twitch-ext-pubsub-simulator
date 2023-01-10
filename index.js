@@ -54,7 +54,7 @@ const makeJWT = function() {
     role: "external",
     channel_id: targetChannel,
     pubsub_perms: {
-      send: ["*"]
+      send: ["broadcast"]
     }
   };
   return JWT.sign(jwt_payload, secret);
@@ -87,9 +87,9 @@ const promise = new Promise((resolve, reject) => {
           new Promise((resolve, reject) => {
             // build the payload
             const payload = {
-              content_type: "application/json",
+              target: ["broadcast"],
+              broadcaster_id: targetChannel,
               message: JSON.stringify(elem),
-              targets: ["broadcast"]
             };
             const serialized = JSON.stringify(payload);
 
@@ -97,7 +97,7 @@ const promise = new Promise((resolve, reject) => {
               console.log(`Sending payload ${serialized}`);
             }
             // do the request
-            fetch(`https://api.twitch.tv/extensions/message/${targetChannel}`, {
+            fetch(`https://api.twitch.tv/helix/extensions/pubsub`, {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${makeJWT()}`,
